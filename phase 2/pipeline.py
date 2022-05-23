@@ -1,20 +1,12 @@
-import os
-import glob
 import numpy as np
-import matplotlib.pyplot as plt
 import pickle
-import time
 import matplotlib.image as mpimg
-from matplotlib import cm
 from moviepy.editor import VideoFileClip
 from sklearn.svm import LinearSVC
-from sklearn.preprocessing import StandardScaler
-from sklearn.model_selection import train_test_split
 from skimage.feature import hog
 from scipy.ndimage.measurements import label
 import cv2
-import math
-
+import sys
 # Compute binned color features by scaling images down
 def get_feature_vector(img, size=(32, 32)):
     # Use cv2.resize().ravel() to create the feature vector
@@ -267,7 +259,7 @@ def process_image(img):
     return result
 
 detect_history = Detect_history()
-project_video_res = 'project_video_result.mp4'
-clip1 = VideoFileClip("video_30.mp4")
+project_video_output = sys.argv[2]
+clip1 = VideoFileClip(sys.argv[1])
 project_video_clip = clip1.fl_image(process_image)
-project_video_clip.write_videofile(project_video_res, audio=False)
+project_video_clip.write_videofile(project_video_output, audio=False)
